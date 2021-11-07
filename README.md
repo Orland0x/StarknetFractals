@@ -13,7 +13,7 @@ TODO: To increase resolution without the render taking days (grows as 0(n^2) whe
 
 
 
-This is what we are aiming for - 1000x1000 plot 
+This is what we are aiming for - 1000x1000 plot in as few calls as possible.
 ![alt text](https://github.com/orlandothefraser/StarknetFractals/blob/main/images/mandelbrot_1000_25.png)
 
 
