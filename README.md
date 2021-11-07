@@ -7,7 +7,7 @@ Current Implementation generates 1 pixel of the fractal per call(). It takes a f
 
 Math for fixed point complex numbers was required here but could be used for other things, so I made a separate cairo file ComplexMath.cairo with this stuff in. 
 
-TODO: To increase resolution without the render taking days, the pixel generation should be batched into fewer calls. The gas limit will limit the maximum batch size. There are additionally some optimizations that can be taken to reduce computation per pixel generation. 
+TODO: To increase resolution without the render taking days (grows as 0(n^2) where n is the resolution), the pixel generation should be batched into fewer calls. The gas limit will limit the maximum batch size. There are additionally some optimizations that can be taken to reduce computation per pixel generation. 
 
 
 
