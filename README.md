@@ -1,5 +1,5 @@
 # StarknetFractals
-Generating the mandelbrot set on Starknet. Work in Progress
+Generating the mandelbrot set on Starknet
 
 Current Implementation generates 1 pixel of the fractal per call(). It takes a few minutes to generate a 10x10 plot (100 pixels) like shown. 
 
