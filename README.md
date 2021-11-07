@@ -3,6 +3,8 @@ Generating the mandelbrot set on Starknet. Work in Progress
 
 Current Implementation generates 1 pixel of the fractal per call(). It takes a few minutes to generate a 10x10 plot (100 pixels) like shown. 
 
+Generation script is the test/test_Mandelbrot.py script 
+
 ![alt text](https://github.com/orlandothefraser/StarknetFractals/blob/main/images/mandelbrot_10_25.png)
 
 Math for fixed point complex numbers was required here but could be used for other things, so I made a separate cairo file ComplexMath.cairo with this stuff in. 
