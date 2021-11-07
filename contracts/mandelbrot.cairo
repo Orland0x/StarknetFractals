@@ -75,7 +75,7 @@ func conjugate {range_check_ptr} (
     ): 
     alloc_locals
     tempvar x_bar_im = -x.im
-    local x_bar : ComplexNumber = ComplexNumber(re=x.re, im=x_bar_im)
+    tempvar x_bar : ComplexNumber = ComplexNumber(re=x.re, im=x_bar_im)
     return (x_bar)
 end 
 
