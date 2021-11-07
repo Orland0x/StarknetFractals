@@ -1,2 +1,4 @@
 # StarknetFractals
-Generating Fractals on Starknet with Cairo
+Generating Fractals on Starknet with Cairo. Currently starting with the mandelbrot set.
+
+
