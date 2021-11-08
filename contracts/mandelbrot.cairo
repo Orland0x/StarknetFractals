@@ -37,11 +37,9 @@ func add_complex {range_check_ptr} (
     ) -> (
         z : ComplexNumber
     ):
-    alloc_locals
     tempvar z_re = x.re + y.re
     tempvar z_im = x.im + y.im 
-
-    local z : ComplexNumber = ComplexNumber(re=z_re, im=z_im)
+    tempvar z : ComplexNumber = ComplexNumber(re=z_re, im=z_im)
     return (z)
 end
 
@@ -63,7 +61,7 @@ func mul_complex_fp {range_check_ptr} (
     tempvar z_re = x_re_y_re - x_im_y_im 
     tempvar z_im = x_re_y_im + x_im_y_re 
 
-    local z : ComplexNumber = ComplexNumber(re=z_re, im=z_im)
+    tempvar z : ComplexNumber = ComplexNumber(re=z_re, im=z_im)
     return (z)
 end
 
@@ -73,7 +71,6 @@ func conjugate {range_check_ptr} (
     ) -> (
         x_bar : ComplexNumber
     ): 
-    alloc_locals
     tempvar x_bar_im = -x.im
     tempvar x_bar : ComplexNumber = ComplexNumber(re=x.re, im=x_bar_im)
     return (x_bar)
@@ -130,10 +127,10 @@ func increment_z {range_check_ptr} (
     ):
     alloc_locals 
 
-   let (local z_2) = mul_complex_fp(z,z)
-   let (local new_z) = add_complex(z_2, c)
+    let (local z_2) = mul_complex_fp(z,z)
+    let (local new_z) = add_complex(z_2, c)
 
-   return (new_z)
+    return (new_z)
 end
 
 #Core function that performs the iteration of z and checks for end conditions. Iterations occur by recursive calls. 

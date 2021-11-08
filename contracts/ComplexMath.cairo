@@ -42,11 +42,10 @@ func add_complex {range_check_ptr} (
     ) -> (
         z : ComplexNumber
     ):
-    alloc_locals
     tempvar z_re = x.re + y.re
     tempvar z_im = x.im + y.im 
 
-    local z : ComplexNumber = ComplexNumber(re=z_re, im=z_im)
+    tempvar z : ComplexNumber = ComplexNumber(re=z_re, im=z_im)
     return (z)
 end
 
@@ -77,7 +76,6 @@ func conjugate {range_check_ptr} (
     ) -> (
         x_bar : ComplexNumber
     ): 
-    alloc_locals
     tempvar x_bar_im = -x.im
     tempvar x_bar : ComplexNumber = ComplexNumber(re=x.re, im=x_bar_im)
     return (x_bar)
