@@ -1,9 +1,9 @@
 # StarknetFractals
 Generating the mandelbrot set on Starknet
 
-Generate the plot via running the scripts/deployment.py script. Output plot will be saved in the images folder.
+Generate the plot via running the scripts/deployment.py script. This first compiles and deploys the contract before generating the plot. Output plot will be saved in the images folder.
 
-The generation is batched into calls to the contract. Each batch generates a certain number of points. From tests, 100 points per call is the rough limit before rescource limits are hit. 
+The generation is batched into calls to the mandelbrot.cairo contract. Each batch generates a certain number of points. From tests, 100 points per call is the rough limit before rescource limits are hit. 
 
 Here is an example 40x40 pixel plot. It took 553 seconds total to generate. 
 ![alt text](https://github.com/orlandothefraser/StarknetFractals/blob/main/images/mandelbrot_40_25.png)
