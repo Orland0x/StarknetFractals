@@ -109,7 +109,6 @@ def generateMandelbrotBatched(contract_name, n):
         out = subprocess_run(cmd)
         stop = timeit.default_timer()
         print(f'Batch {b+1}/{num_batches} completed in {stop - start} seconds')
-
         output_array_batch = [int(elem) for elem in out.split(' ')]
         output_array_batch = output_array_batch[1:] #removing first element which is the length
         output_array = output_array + output_array_batch
@@ -123,6 +122,6 @@ if __name__=="__main__":
 
     compile('mandelbrot')
     deploy('mandelbrot')
-    generateMandelbrotBatched('mandelbrot',40)
+    generateMandelbrotBatched('mandelbrot',2)
 
 
