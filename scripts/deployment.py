@@ -122,6 +122,6 @@ if __name__=="__main__":
 
     compile('mandelbrot')
     deploy('mandelbrot')
-    generateMandelbrotBatched('mandelbrot',2)
+    generateMandelbrotBatched('mandelbrot',40)
 
 
