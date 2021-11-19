@@ -62,7 +62,7 @@ def compile(contract_name):
     print(f'{contract_name} at contracts/{contract_name}.cairo compiled successfully')
 
 def deploy(contract_name):
-    cmd = f'nile deploy {contract_name} --alias {contract_name} --network mainnet'
+    cmd = f'nile deploy {contract_name} --alias {contract_name}'
     cmd = cmd.split(' ')
     out = subprocess_run(cmd)
     print(out)
