@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-#generating the mandelbrot set with python. 
+#generating the mandelbrot set with python. Used as a reference for the cairo implementation
 
 def get_iter(c:complex, thresh:int =4, max_steps:int =25) -> int:
     # Z_(n) = (Z_(n-1))^2 + c
@@ -45,6 +45,11 @@ def plotter_recursive(n, thresh, max_steps=25):
             img[y][x] = 255 - it
     print(img)
     return img
+
+a = np.array([1,2,3,4])
+print(a)
+a = 255 - np.reshape(a,(2,2))
+print(a)
 
 
 n=1000

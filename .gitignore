@@ -2,3 +2,6 @@
 .env
 env.yaml
 __pycache__/*
+artifacts/ 
+localhost.deployments.txt 
+mainnet.deployments.txt

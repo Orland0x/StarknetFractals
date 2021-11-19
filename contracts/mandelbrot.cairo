@@ -2,8 +2,10 @@
 %builtins pedersen range_check
 
 from starkware.cairo.common.cairo_builtins import HashBuiltin
-from starkware.cairo.common.math import (signed_div_rem, sign)
+from starkware.cairo.common.math import (signed_div_rem, sign, assert_nn)
 from starkware.cairo.common.math_cmp import is_le
+from starkware.cairo.common.alloc import alloc
+
 
 const RANGE_CHECK_BOUND = 2 ** 64
 const SCALE_FP = 100 #Scale for floating point number representation, here we use 2 decimal places hence we require a scale of 100
@@ -171,6 +173,91 @@ func get_iters {range_check_ptr} (
     return (iters)
 
 end
+
+@view 
+func get_iters_2 {range_check_ptr} (
+        c_array_len : felt, 
+        c_array : felt*
+    ) -> (
+        i_array_len : felt,
+        i_array : felt*
+    ):
+    alloc_locals
+    let num_c = c_array_len / ComplexNumber.SIZE 
+    assert_nn(num_c) 
+
+    let (local i_array : felt*) = alloc()
+    
+    let c1 = cast(c_array, ComplexNumber*)
+    let (i) = get_iters([c1])
+    assert i_array[0] = i
+
+    let c2_loc = c_array + ComplexNumber.SIZE 
+    let c2 = cast(c2_loc, ComplexNumber*)
+    let (i) = get_iters([c2])
+    assert i_array[1] = i  
+
+    return (2,i_array) 
+end
+
+@view 
+func get_iters_batch {range_check_ptr} (
+        c_array_len : felt, 
+        c_array : felt*
+    ) -> (
+        i_array_len : felt,
+        i_array : felt*
+    ):
+    alloc_locals
+    let num_c = c_array_len / ComplexNumber.SIZE 
+    assert_nn(num_c) 
+
+    let (local i_array : felt*) = alloc()
+
+    let i_array_len = c_array_len / ComplexNumber.SIZE
+    fill_array(c_array_len, c_array, i_array_len, i_array)
+
+    return (i_array_len,i_array) 
+end
+
+@view
+func fill_array {range_check_ptr} (
+        c_array_len : felt, 
+        c_array : felt*,
+        i_array_len : felt,
+        i_array : felt*
+    ):
+
+    if c_array_len == 0:
+        return ()
+    end
+
+    let c = cast(c_array, ComplexNumber*)
+    let (i) = get_iters([c])
+
+    assert i_array[i_array_len - c_array_len/ComplexNumber.SIZE] = i
+
+    fill_array(c_array_len-ComplexNumber.SIZE, c_array+ComplexNumber.SIZE, i_array_len, i_array)
+
+    return ()
+
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
