@@ -1,14 +1,11 @@
-%lang starknet
-%builtins pedersen range_check
-
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 
 from starkware.cairo.common.math import (signed_div_rem, sign)
 
+
+
 const RANGE_CHECK_BOUND = 2 ** 64
 const SCALE_FP = 100
-
-
 
 ###Library functions for dealing with fixed point complex numbers.
 
@@ -19,7 +16,7 @@ struct ComplexNumber:
     member im : felt
 end
 
-@view
+
 func mul_fp {range_check_ptr} (
         a : felt,
         b : felt
@@ -35,7 +32,7 @@ func mul_fp {range_check_ptr} (
 end
 
 
-@view 
+
 func add_complex {range_check_ptr} (
         x : ComplexNumber,
         y : ComplexNumber
@@ -49,7 +46,7 @@ func add_complex {range_check_ptr} (
     return (z)
 end
 
-@view 
+
 func mul_complex_fp {range_check_ptr} (
         x : ComplexNumber,
         y : ComplexNumber
@@ -70,7 +67,7 @@ func mul_complex_fp {range_check_ptr} (
     return (z)
 end
 
-@view 
+
 func conjugate {range_check_ptr} ( 
         x : ComplexNumber
     ) -> (
@@ -81,13 +78,17 @@ func conjugate {range_check_ptr} (
     return (x_bar)
 end 
 
-@view 
+
 func get_sqrd_mag {range_check_ptr} (
         x : ComplexNumber
     ) -> (
         mag : felt 
     ):
-    tempvar sqrd_mag = x.re*x.re + x.im*x.im
+    alloc_locals 
+    let (local re_2) = mul_fp(x.re,x.re)
+    let (local im_2) = mul_fp(x.im,x.im)
+    tempvar sqrd_mag = re_2 + im_2
+    
     return (sqrd_mag)
 end
 

@@ -41,18 +41,14 @@ def plotter_recursive(n, thresh, max_steps=25):
     img=np.full((n,n), 255)
     for x in range(n):
         for y in range(n):
-            it = get_iter_recursive(c=complex(*mapper(x,y)), max_steps=25)
+            it = get_iter_recursive(c=complex(*mapper(x,y)), max_steps=32)
             img[y][x] = 255 - it
-    print(img)
     return img
 
-a = np.array([1,2,3,4])
-print(a)
-a = 255 - np.reshape(a,(2,2))
-print(a)
 
 
-n=1000
+
+n=100
 img = plotter_recursive(n, thresh=4, max_steps=25)
 plt.imshow(img, cmap="plasma")
 plt.axis("off")

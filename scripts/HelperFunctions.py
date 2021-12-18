@@ -1,10 +1,8 @@
-import sys
 import numpy as np
 import subprocess
 import timeit 
 import math
 import matplotlib.pyplot as plt 
-#Run nile commands as subprocesses
 
 PRIME = 3618502788666131213697322783095070105623107215331596699973092056135872020481
 PRIME_HALF = PRIME//2
@@ -13,7 +11,7 @@ SCALE_FP = 100 #We work with 2 decimal place fixed point numbers
 N=5 #Resolution of the resulting plot. The image will be N x N pixels
 
 #from tests it was found that the max batch size achievable was about 225 (ie n=15). After this point, resource limits were hit. 
-POINTS_PER_BATCH = 100  
+POINTS_PER_BATCH = 50  
 
 #Converts any real number to its corresponding floating point felt
 def real_to_fp_felt(num):
@@ -38,7 +36,38 @@ def create_input_array(n):
             array.append(real_to_fp_felt(_x))
             array.append(real_to_fp_felt(_y))
 
+    return array 
+
+#create list of of lists each list containing 50 points that represents a single column of the plot for a 100x100 plot (positive quadrants only so actually 50x100 points)
+def create_input_array_100():
+    mx = 2.48/(100-1)
+    my = 2.26/(100-1)
+    mapper_x = lambda x: mx*x - 2
+    mapper_y = lambda y: my*y - 1.13 
+
+    array = []  
+    for x in  range(100):
+        _x = mapper_x(x)
+        for y in range(100):
+            _y = mapper_y(y)
+            if _y >= 0:
+                array.append(real_to_fp_felt(_x))
+                array.append(real_to_fp_felt(_y))  
+    
     return array
+  
+def generate_plot_100(array):
+    bottom = np.array(array)
+    bottom = 255 - np.reshape(bottom, (50,100), order='F')
+
+    top = np.copy(bottom)
+    top = np.flipud(top) 
+
+    plot = np.concatenate((top[:-1,:], bottom), axis=0)
+
+    plt.imshow(plot, cmap="plasma")
+    plt.axis("off")
+    plt.savefig(f'images/mandelbrot_100_25.png')     
 
 def generate_plot(array,n):
     array_np = np.array(array)
@@ -68,7 +97,7 @@ def deploy(contract_name):
     print(out)
     print(f'{contract_name} deployed successfully')
 
-#Generates the plot in a single function call, only works with max about n=15. After which resource limits are hit
+#Generates the offchain plot in a single function call, only works with max about n=15. After which resource limits are hit
 def generateMandelbrot(contract_name, n):
     c_array = create_input_array(n)
     c_array_length = [len(c_array)]
@@ -76,9 +105,8 @@ def generateMandelbrot(contract_name, n):
     input_array = c_array_length + c_array #adding length of array to beginning 
     input_str = ' '.join([str(elem) for elem in input_array]) 
 
-    cmd = f'nile call {contract_name} get_iters_batch {input_str}'
+    cmd = f'nile call {contract_name} store_iters_batch_offchain {input_str}'
     cmd = cmd.split(' ')
-    print(cmd)
     out = subprocess_run(cmd)
 
     output_array = [int(elem) for elem in out.split(' ')]
@@ -89,7 +117,7 @@ def generateMandelbrot(contract_name, n):
     print('done')
 
 #Batched generation which should allow much higher resolution plots to be generated 
-def generateMandelbrotBatched(contract_name, n):
+def generateMandelbrotBatchedOffchain(contract_name, n):
     c_array = create_input_array(n)
     
     #round up
@@ -103,7 +131,7 @@ def generateMandelbrotBatched(contract_name, n):
         input_array = c_array_batch_length + c_array_batch #adding length of array to beginning 
         input_str = ' '.join([str(elem) for elem in input_array]) 
 
-        cmd = f'nile call {contract_name} get_iters_batch {input_str}'
+        cmd = f'nile call {contract_name} store_iters_batch_offchain {input_str}'
         cmd = cmd.split(' ')
         start = timeit.default_timer()
         out = subprocess_run(cmd)
@@ -115,13 +143,4 @@ def generateMandelbrotBatched(contract_name, n):
 
     stop_total = timeit.default_timer()
     print(f'All Batches completed, taking {stop_total-start_total} seconds total')
-    generate_plot(output_array, n)
-
-
-if __name__=="__main__":
-
-    compile('mandelbrot')
-    deploy('mandelbrot')
-    generateMandelbrotBatched('mandelbrot',40)
-
-
+    generate_plot(output_array, n) 
