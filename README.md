@@ -26,6 +26,7 @@ Deploy (using an alias of your choosing):
 ```bash
 nile deploy mandelbrotOnChain --alias mandelbrotOnChain_Instance
 ```  
+## Generation and Retrieval 
 
 Invoke the contract using the script supplied to generate the Mandelbrot set and store the data to produce it within the contract: 
 ```bash
