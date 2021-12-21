@@ -3,7 +3,9 @@ Generating the mandelbrot set on Starknet
 
 ## Environment Setup 
 
-Install Cairo within a python environment as described in https://www.cairo-lang.org/docs/quickstart.html
+Install Cairo within a python environment as described in https://www.cairo-lang.org/docs/quickstart.html 
+
+
 
 
 
