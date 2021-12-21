@@ -1,6 +1,13 @@
 # StarknetFractals
 Generating the mandelbrot set on Starknet
 
+## Environment Setup 
+
+Install Cairo within a python environment as described in https://www.cairo-lang.org/docs/quickstart.html
+
+
+
+
 Generate the plot via running the scripts/deployment.py script. This first compiles and deploys the contract before generating the plot. Output plot will be saved in the images folder.
 
 The generation is batched into calls to the mandelbrot.cairo contract. Each batch generates a certain number of points. From tests, 100 points per call is the rough limit before rescource limits are hit. 
