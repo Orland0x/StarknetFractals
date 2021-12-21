@@ -3,7 +3,7 @@ Generating the mandelbrot set on Starknet
 
 ## Environment Setup 
 
-Install Cairo within a python environment as described in https://www.cairo-lang.org/docs/quickstart.html  
+Create a python environment, activate it, and install Cairo within it as described in: https://www.cairo-lang.org/docs/quickstart.html  
 
 Install Nile:
 ```bash
@@ -27,13 +27,16 @@ Deploy (using an alias of your choosing):
 nile deploy mandelbrotOnChain --alias mandelbrotOnChain_Instance
 ```  
 
-Generate the Mandelbrot set: 
+Invoke the contract using the script supplied to generate the Mandelbrot set and store the data to produce it within the contract: 
 ```bash
-python3.7
+python3.7 scripts/generateMandelbrotOnChain.py mandelbrotOnChain_Instance 
 ``` 
 
-
-
+Retrieve the Mandelbrot set data from within the contract and generate the plot of it using the supplied script:
+```bash
+python3.7 scripts/retrieveMandelbrotOnChain.py mandelbrotOnChain_Instance 
+``` 
+The resulting plot is stored within the images directory. 
 
 
 
