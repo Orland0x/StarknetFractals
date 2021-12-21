@@ -12,6 +12,26 @@ pip install cairo-nile
 
 ## Compiling and Deploying 
 
+Compile: 
+```bash
+nile compile contracts/mandelbrotOnChain.cairo
+``` 
+
+Run a local starknet-devnet node:
+```bash
+nile node
+``` 
+
+Deploy (using an alias of your choosing):
+```bash
+nile deploy mandelbrotOnChain --alias mandelbrotOnChain_Instance
+```  
+
+Generate the Mandelbrot set: 
+```bash
+python3.7
+``` 
+
 
 
 
