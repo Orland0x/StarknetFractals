@@ -37,7 +37,9 @@ Retrieve the Mandelbrot set data from within the contract and generate the plot 
 ```bash
 python3.7 scripts/retrieveMandelbrotOnChain.py mandelbrotOnChain_Instance 
 ``` 
-The resulting plot is stored within the images directory. 
+The resulting plot is stored within the images directory. It should look like this!
+
+![alt text](https://github.com/orlandothefraser/StarknetFractals/blob/main/images/mandelbrot_100_25.png)
 
 
 
