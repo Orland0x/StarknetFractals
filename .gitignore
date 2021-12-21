@@ -3,6 +3,6 @@
 env.yaml
 __pycache__/*
 artifacts/ 
-build/
+build/deployments
 localhost.deployments.txt 
 mainnet.deployments.txt
