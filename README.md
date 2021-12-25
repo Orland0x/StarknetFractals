@@ -1,5 +1,5 @@
 # StarknetFractals
-Generating the mandelbrot set on Starknet
+Generating the mandelbrot set on Starknet. Computes a 100x100 mandelbrot plot and stores necessary data to recontruct it onchain in 100 storage felts. One can then call the contract to retrieve the data and reconstruct the plot. 
 
 ## Environment Setup 
 
