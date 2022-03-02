@@ -1,8 +1,5 @@
 from starkware.cairo.common.cairo_builtins import HashBuiltin
-
 from starkware.cairo.common.math import (signed_div_rem, sign)
-
-
 
 const RANGE_CHECK_BOUND = 2 ** 64
 const SCALE_FP = 100
@@ -15,7 +12,6 @@ struct ComplexNumber:
     member re : felt
     member im : felt
 end
-
 
 func mul_fp {range_check_ptr} (
         a : felt,
@@ -31,8 +27,6 @@ func mul_fp {range_check_ptr} (
     return (c)
 end
 
-
-
 func add_complex {range_check_ptr} (
         x : ComplexNumber,
         y : ComplexNumber
@@ -45,7 +39,6 @@ func add_complex {range_check_ptr} (
     tempvar z : ComplexNumber = ComplexNumber(re=z_re, im=z_im)
     return (z)
 end
-
 
 func mul_complex_fp {range_check_ptr} (
         x : ComplexNumber,
@@ -67,7 +60,6 @@ func mul_complex_fp {range_check_ptr} (
     return (z)
 end
 
-
 func conjugate {range_check_ptr} ( 
         x : ComplexNumber
     ) -> (
@@ -77,7 +69,6 @@ func conjugate {range_check_ptr} (
     tempvar x_bar : ComplexNumber = ComplexNumber(re=x.re, im=x_bar_im)
     return (x_bar)
 end 
-
 
 func get_sqrd_mag {range_check_ptr} (
         x : ComplexNumber
@@ -91,29 +82,3 @@ func get_sqrd_mag {range_check_ptr} (
     
     return (sqrd_mag)
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
